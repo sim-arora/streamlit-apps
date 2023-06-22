@@ -10,6 +10,6 @@ def app():
     m = leafmap.Map(center=[40, -100], zoom=4)
     m.add_geojson(
         in_geojson=filepath,
-        info_mode="coty_name_long"
+        popup="coty_name_long"
     )
     m.to_streamlit(height=700)
