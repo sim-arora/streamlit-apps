@@ -1,24 +1,14 @@
-import folium
-import pandas as pd
-import geopandas as gpd
 import streamlit as st
 import leafmap.foliumap as leafmap
 
-df = gpd.read_file("C:/Users/aroras4/Desktop/Shapefiles/georef-united-states-of-america-county.geojson")
 
 def app():
 
-    st.title("US Counties Selector")
+    st.title("US Counties")
 
     filepath = "https://github.com/sim-arora/streamlit-apps/blob/main/data/georef-united-states-of-america-county.geojson"
-    m = leafmap.Map(width=1000, height=1000, location=[30.70, -93.94], zoom_start=4, tiles='stamentoner')
-
-    for _, r in df.iterrows():
-     sim_geo = gpd.GeoSeries(r['geometry']).simplify(tolerance=0.001)
-    geo_j = sim_geo.to_json()
-    geo_j = leafmap.GeoJson(data=geo_j
-                           ,style_function=lambda x: {'fillColor': '#ffff00','color': 'black','weight': 0.25})
-    leafmap.Popup(r['coty_gnis_code']).add_to(geo_j)
-    geo_j.add_to(m)
-
-m.to_streamlit(height=700)
+    m = leafmap.Map(tiles="stamentoner")
+    m.add_geojson(
+        in_geojson=filepath
+    )
+    m.to_streamlit(height=700)
