@@ -6,7 +6,7 @@ from shapely.geometry import Polygon
 
 # functions below
 
-def draw_from_file(filepath)
+def draw_from_file(filepath):
     gdf = gpd.read_file(filepath)
     m = folium.Map(location=[48.771, -94.90], zoom_start=4)
 
