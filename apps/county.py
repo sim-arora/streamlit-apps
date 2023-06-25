@@ -9,11 +9,12 @@ from shapely.geometry import Polygon
 def draw_from_file(filepath):
     gdf = gpd.read_file(filepath)
     m = folium.Map(location=[48.771, -94.90], zoom_start=4)
+    st.map(gdf)
 
-    for _, row in gdf.iterrows():
-        polygon = row['geometry']
-        coordinates = list(polygons.exterior.coords)
-        folium.Polygon(locations=coordinates).add_to(m)
+    #for _, row in gdf.iterrows():
+        #polygon = row['geometry']
+        #coordinates = list(polygons.exterior.coords)
+        #folium.Polygon(locations=coordinates).add_to(m)
 
     drawn_line = st.map.draw_polyline()
     if drawn_line is not None:
