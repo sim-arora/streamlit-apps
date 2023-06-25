@@ -1,23 +1,14 @@
 import streamlit as st
-import folium
-from streamlit_folium import folium_static
-import geopandas as gpd
-from shapely.geometry import Polygon
+import leafmap.foliumap as leafmap
 
-# functions below
 
-def draw_from_file(filepath):
-    gdf = gpd.read_file(filepath)
-    m = folium.Map(location=[48.771, -94.90], zoom_start=4)
+def app():
 
-    for _, row in gdf.iterrows():
-        polygon = row['geometry']
-        coordinates = list(polygons.exterior.coords)
-        folium.Polygon(locations=coordinates).add_to(m)
+    st.title("US Counties")
 
-    folium_static(m)
-
-file_path = "C:/Users/aroras4/Desktop/Shapefiles/georef-united-states-of-america-county.geojson"
-
-st.title("US Counties Selector")
-draw_from_file(file_path)
+    filepath = "https://github.com/sim-arora/streamlit-apps/blob/main/data/georef-united-states-of-america-county.geojson"
+    m = leafmap.Map(center=[40, -100], zoom=4)
+    m.add_geojson(
+        in_geojson=filepath
+    )
+    m.to_streamlit(height=700)
