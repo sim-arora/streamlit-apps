@@ -2,7 +2,7 @@ import streamlit as st
 import folium
 from streamlit_folium import folium_static
 import geopandas as gpd
-from shapely.geometry import Polygon
+from shapely.geometry import Polygon, LineString
 
 # functions below
 
