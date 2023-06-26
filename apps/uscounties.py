@@ -15,7 +15,7 @@ def main():
                
         drawn_line = st.map.drawn_polyon()
         if drawn_line is not None:
-        line = LineString(drawn_line)
+            line = LineString(drawn_line)
 
         selected_counties = gdf[gdf.intersects(line)]
 
