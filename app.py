@@ -1,6 +1,6 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
-from apps import county  # import your app modules here
+from apps import uscounties  # import your app modules here
 
 st.set_page_config(page_title="Streamlit Geospatial", layout="wide")
 
@@ -8,6 +8,6 @@ st.set_page_config(page_title="Streamlit Geospatial", layout="wide")
 # More icons can be found here: https://icons.getbootstrap.com
 
 apps = [
-    {"func": county.app, "title": "Upload", "icon": "cloud-upload"},
+    {"func": uscounties.app, "title": "Upload", "icon": "cloud-upload"},
 ]
 
