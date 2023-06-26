@@ -1,14 +1,25 @@
 import streamlit as st
-import leafmap.foliumap as leafmap
+import geopandas as gpd
+from shapely.geometry import LineString
 
+def main():
+    st.title("US Counties Selector")
+    st.set_option('deprecation.showfileUploaderEncoding', False)
 
-def app():
+    uploaded_file = st.file_uploader("Upload GeoJSON file", type="geojson")
+    if uploaded_file is not None:
+        
+        gdf = gpd.read_file(uploaded_file)
 
-    st.title("US Counties")
+        st.map(gdf)
+               
+        drawn_line = st.map.drawn_polyon()
+        if drawn_line is not None:
+        line = LineString(drawn_line)
 
-    filepath = "https://github.com/sim-arora/streamlit-apps/blob/main/data/georef-united-states-of-america-county.geojson"
-    m = leafmap.Map(center=[40, -100], zoom=4)
-    m.add_geojson(
-        in_geojson=filepath
-    )
-    m.to_streamlit(height=700)
+        selected_counties = gdf[gdf.intersects(line)]
+
+        st.subheader("Selected Counties:")
+        st.write(selected_counties)
+
+main()
