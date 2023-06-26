@@ -1,6 +1,6 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
-from apps import home, heatmap, vector, upload, uscounties # import your app modules here
+from apps import home, heatmap, vector, uscounties, upload  # import your app modules here
 
 st.set_page_config(page_title="Streamlit Geospatial", layout="wide")
 
@@ -10,8 +10,7 @@ st.set_page_config(page_title="Streamlit Geospatial", layout="wide")
 apps = [
     # {"func": home.app, "title": "Home", "icon": "house"},
     # {"func": heatmap.app, "title": "Heatmap", "icon": "map"},
-    # {"func": vector.app, "title": "Upload", "icon": "cloud-upload"},
-    {"func": uscounties.app, "title": "US Counties", "icon": "uscounties"},
+    {"func": uscounties.app, "title": "Upload", "icon": "cloud-upload"},
 ]
 
 titles = [app["title"] for app in apps]
@@ -37,7 +36,7 @@ with st.sidebar:
     st.sidebar.title("About")
     st.sidebar.info(
         """     
-        Source code: <https://github.com/sim-arora/streamlit-apps>
+        Source code: <https://github.com/armussah-jacobs/streamlit-template>
 
         More menu icons: <https://icons.getbootstrap.com>
     """
