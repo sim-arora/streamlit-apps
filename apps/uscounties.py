@@ -1,36 +1,36 @@
 import streamlit as st
 import folium
-from streamlit_folium import folium_static
 import geopandas as gpd
-from shapely.geometry import Polygon, LineString
+from shapely.geometry import LineString
 
-# functions below
+#Functions
 
-def draw_from_file(filepath):
-    gdf = gpd.read_file(filepath)
-    m = folium.Map(location=[48.771, -94.90], zoom_start=4)
-    st.map(gdf)
+def main():
+    st.title("US Counties Selector")
+    
+    county_gdf = gpd.read_file(file_path)
 
-    #for _, row in gdf.iterrows():
-        #polygon = row['geometry']
-        #coordinates = list(polygons.exterior.coords)
-        #folium.Polygon(locations=coordinates).add_to(m)
+    m = folium.Map(location=[41.00792926996004, -97.76132662516906], zoom_start=8)
 
-    drawn_line = st.map.draw_polyline()
+    folium.GeoJson(county_gdf).add_to(m)
+
+    drawn_line = m.drawn_line()
     if drawn_line is not None:
-        line = LineString(drawn_line)
 
-        selected_counties = gdf[gdf.intersects(line)]
+        line_coords = [(p.y, p.x) for p in drawn_line]
+        line = LineString(line_coords)
 
-        st.subheader("Selected Counties")
-        st.write(selected_counties)
+        intersecting_counties = county_gdf[county_gdf.intersects(line)]
 
-    folium_static(m)
+        st.subheader("Intersecting Counties:")
+        st.write(intersecting_counties)
 
+        highlight_layer = folium.GeoJson(intersecting_counties)
+        highlight_layer.add_to(m)
+
+    st.folium_static(m)
 
 file_path = "https://github.com/sim-arora/streamlit-apps/blob/main/data/georef-united-states-of-america-county.geojson"
 
-st.title("US Counties Selector")
-
-draw_from_file(file_path)
-
+if __name__ == '__main__':
+    main()
